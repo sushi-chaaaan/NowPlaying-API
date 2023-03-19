@@ -3,7 +3,8 @@
         "fastapi",
         "pydantic",
         "pyright",
-        "slowapi"
+        "slowapi",
+        "uvicorn"
     ],
     "editor.formatOnSave": true,
     "flake8.args": [
