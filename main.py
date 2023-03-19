@@ -30,8 +30,7 @@ async def root(request: Request, url: HttpUrl) -> root_schema.RootPostResponse:
     track_artist: str = track_info["artists"][0]["name"]
     track_album_name: str = track_info["album"]["name"]
 
-    now_playing_tweet = f"""
-#NowPlaying
+    now_playing_tweet = f"""#NowPlaying
 {track_name}/ {track_artist} - {track_album_name}
 {post.url}
 """
