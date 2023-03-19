@@ -1,0 +1,7 @@
+services:
+  api:
+    container_name: "NowPlayingAPI"
+    restart: always
+    build: .
+    ports:
+      - "8088:8088"
