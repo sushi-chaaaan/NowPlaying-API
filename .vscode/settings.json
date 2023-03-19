@@ -4,6 +4,7 @@
         "pydantic",
         "pyright",
         "slowapi",
+        "spotipy",
         "uvicorn"
     ],
     "editor.formatOnSave": true,

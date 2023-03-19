@@ -3,5 +3,7 @@ services:
     container_name: "NowPlayingAPI"
     restart: always
     build: .
+    env_file:
+      - .env
     ports:
       - "8088:8088"
