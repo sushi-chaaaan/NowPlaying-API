@@ -1,7 +1,9 @@
 {
     "cSpell.words": [
+        "fastapi",
         "pydantic",
-        "pyright"
+        "pyright",
+        "slowapi"
     ],
     "editor.formatOnSave": true,
     "flake8.args": [
