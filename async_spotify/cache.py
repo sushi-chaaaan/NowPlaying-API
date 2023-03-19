@@ -13,13 +13,11 @@ class CacheFileHandler:
     as json files on disk.
     """
 
-    async def __aenter__(self, cache_path=None, username=None, encoder_cls=None) -> "CacheFileHandler":
+    def __init__(self, cache_path: str = ".cache", encoder_cls: str | None = None) -> None:
+        self.cache_path = cache_path
         self.encoder_cls = encoder_cls
-        if cache_path:
-            self.cache_path = cache_path
-        else:
-            cache_path = ".cache"
-            self.cache_path = cache_path
+
+    async def __aenter__(self) -> "CacheFileHandler":
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
@@ -43,6 +41,6 @@ class CacheFileHandler:
     async def save_token_to_cache(self, token_info):
         try:
             async with aiofiles.open(self.cache_path, "w") as f:
-                await f.write(json.dumps(token_info, cls=self.encoder_cls))
+                await f.write(json.dumps(token_info, cls=self.encoder_cls))  # type: ignore
         except IOError:
             logger.warning("Couldn't write token to cache at: %s", self.cache_path)

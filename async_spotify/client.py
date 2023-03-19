@@ -14,17 +14,15 @@ class AsyncSpotifyClient:
     _regex_spotify_url = re.compile(
         r"^(http[s]?:\/\/)?open.spotify.com\/(?P<type>track|artist|album|playlist|show|episode|user)\/(?P<id>[0-9A-Za-z]+)(\?.*)?$"  # noqa: E501
     )
+    cache_path: str = ".spotify.cache"
 
     def __init__(self, client_id: str, client_secret: str):
         self._client_id = client_id
         self._client_secret = client_secret
 
-        self._cache_handler = CacheFileHandler()
-
     async def __aenter__(self, client_id: str, client_secret: str) -> "AsyncSpotifyClient":
         self._client_id = client_id
         self._client_secret = client_secret
-        self._cache_handler = CacheFileHandler()
         return self
 
     async def __aexit__(self, exc_type, exc, tb):
@@ -57,14 +55,14 @@ class AsyncSpotifyClient:
                         "expires_in": expires_in,
                         "expires_at": expires_at,
                     }
-                    async with self._cache_handler as handler:
+                    async with CacheFileHandler() as handler:
                         await handler.save_token_to_cache(cache)
         return
 
     async def _get_token(self) -> str:
         """Get a token from the cache or generate a new one if it doesn't exist"""
 
-        async with self._cache_handler as handler:
+        async with CacheFileHandler() as handler:
             cached_token = await handler.get_cached_token()
         if cached_token:
             if cached_token["expires_at"] < math.floor(time.time()):
