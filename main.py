@@ -27,11 +27,12 @@ async def root(request: Request, url: HttpUrl) -> root_schema.RootPostResponse:
     track_info = await client.get_track(post.url)
 
     track_name: str = track_info["name"]
-    track_artist: str = track_info["artists"][0]["name"]
+    track_artists: list[str] = [artist["name"] for artist in track_info["artists"]]
+    artists: str = ", ".join(track_artists)
     track_album_name: str = track_info["album"]["name"]
 
     now_playing_tweet = f"""#NowPlaying
-{track_name}/ {track_artist} - {track_album_name}
+{track_name}/ {artists} - {track_album_name}
 {post.url}
 """
     return root_schema.RootPostResponse(
