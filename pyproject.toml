@@ -9,7 +9,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-fastapi = "^0.95.0"
+fastapi = "^0.100.0"
 slowapi = "^0.1.7"
 aiohttp = "^3.8.4"
 uvicorn = "^0.21.1"
